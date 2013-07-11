@@ -1,0 +1,1 @@
+var hoopDetector = require('../lib/hoop_detector');
