@@ -17,7 +17,7 @@ Find the elipse represented by that colour
 	-Stretch: Validate that it is an ellipse/circle
 Find the centre of that elipse
 	-We can assume that the centroid of the points is the centre of the circle
-Find the right angle to make elipse a circla - stretch
+Find the right angle to make elipse a circle - stretch
 	-This might require a more advanced fitting protocol
 	-Containing box ration of X-dimension vs. Y-dimension?
 Figure out how to move the drone to center/align the circle/elipse
@@ -28,3 +28,9 @@ Fly forward through the elipse
 	-Easy?
 Verify that we're flying straight - stretch
 	-Reassess the loop until it's out of the bounds of the image?
+
+
+
+Tests:
+	Stable hovering
+	Move small amounts left, right, up, down, find a good step for aligning with a hoop
