@@ -28,3 +28,6 @@ Fly forward through the elipse
 	-Easy?
 Verify that we're flying straight - stretch
 	-Reassess the loop until it's out of the bounds of the image?
+Flair - Music
+	- find music circus music and applause mp3
+	- hook up sound playing
