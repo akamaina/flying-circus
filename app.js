@@ -1,12 +1,14 @@
-var hoopDetector = require('./lib/hoop_detector'),
-    waitForHoopFound = 10000,
+var hoopDetector = require('./lib/light_detector'),
+    waitForHoopFound = 50000,
     checkHoopFoundInterval = 1000,
     lastHoopFound = (new Date()).getTime(),
     possibleDirections = ['up', 'down', 'left', 'right'],
-    speed = 0.5,
+    waitForTakeOff = 0,
+    speed = 0.1,
     client = require('ar-drone').createClient(),
     pngStream = client.getPngStream(),
-    fs = require('fs');
+    fs = require('fs'),
+    stepDuration = 200;
 
 // When no hoop is found, stop and rotate
 function noHoopFound() {
@@ -30,6 +32,9 @@ function newImage(pngImagePath) {
         if (possibleDirections.indexOf(direction) === -1) return noHoopFound();
         console.log('Hoop found, moving ' + direction);
         client[direction](speed);
+        client.after(stepDuration, function() {
+            this.stop();
+        });
     });
 }
 
@@ -37,9 +42,21 @@ pngStream
     .on('error', console.log)
     .on('data', function(pngBuffer) {
         var pngImagePath =  './photos/' + (new Date()).getTime() + '.png';
-        console.log('writing images to ' + pngImagePath);
+        console.log('writing image to ' + pngImagePath);
         fs.writeFile(pngImagePath, pngBuffer, function(err) {
             if (err) console.warn(err);
             newImage(pngImagePath);
         });
     });
+
+client.takeoff();
+setTimeout(function() {
+    setInterval(function() {
+        hoopDetector.detectHoop('./tests/images/down.jpg', function(err, direction) {
+            if (err) console.warn(err);
+            if (possibleDirections.indexOf(direction) === -1) return noHoopFound();
+            console.log('Hoop found, moving ' + direction);
+            client[direction](speed);
+        });
+    }, stepDuration);
+}, 0);
