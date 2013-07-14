@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    ul.thumbnails
+        li.span6
+            img#idImgCamera
+            h3 Camera
+        li.span6
+            img#idImgFilter
+            h3 Filtered
+            div.row
+                div.span3
+                    div From
+                        div.row
+                            button#idBtnSendFromFilter.span1.btn Send
+                div.span3
+                    div To
+                        div#idToColor #EFEFEF
+        li.span6
+            img#idImgContour
+            h3 Contours
+        li.span6
+            img#idImgCircle
+            h3 Circles

@@ -2,8 +2,14 @@
   "name": "flying-circus",
   "description": "AR Drone flying through hoops",
   "version": "0.0.1",
+  "scripts": {
+        "start": "node app.js"
+  },
   "dependencies": {
-    "ar-drone": "0.1.0",
-    "opencv" : "0.3.0"
-  }
+        "express": "3.3.4",
+        "jade": "*",
+        "opencv": "0.3.x",
+        "ar-drone": "0.1.x",
+        "socket.io" : "0.9.x"
+    }
 }
