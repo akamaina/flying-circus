@@ -3,7 +3,7 @@ var hoopDetector = require('./lib/light_detector'),
     checkHoopFoundInterval = 1000,
     lastHoopFound = (new Date()).getTime(),
     possibleDirections = ['up', 'down', 'left', 'right'],
-    waitForTakeOff = 0,
+    waitForTakeOff = 10000,
     speed = 0.1,
     client = require('ar-drone').createClient(),
     pngStream = client.getPngStream(),
@@ -38,25 +38,27 @@ function newImage(pngImagePath) {
     });
 }
 
-pngStream
-    .on('error', console.log)
-    .on('data', function(pngBuffer) {
-        var pngImagePath =  './photos/' + (new Date()).getTime() + '.png';
-        console.log('writing image to ' + pngImagePath);
-        fs.writeFile(pngImagePath, pngBuffer, function(err) {
-            if (err) console.warn(err);
-            newImage(pngImagePath);
-        });
-    });
+
 
 client.takeoff();
 setTimeout(function() {
-    setInterval(function() {
-        hoopDetector.detectHoop('./tests/images/down.jpg', function(err, direction) {
-            if (err) console.warn(err);
-            if (possibleDirections.indexOf(direction) === -1) return noHoopFound();
-            console.log('Hoop found, moving ' + direction);
-            client[direction](speed);
+//    setInterval(function() {
+//        hoopDetector.detectHoop('./tests/images/down.jpg', function(err, direction) {
+//            if (err) console.warn(err);
+//            if (possibleDirections.indexOf(direction) === -1) return noHoopFound();
+//            console.log('Hoop found, moving ' + direction);
+//            client[direction](speed);
+//        });
+//    }, stepDuration);
+    pngStream
+        .on('error', console.log)
+        .on('data', function(pngBuffer) {
+            var pngImagePath =  './photos/' + (new Date()).getTime() + '.png';
+            console.log('writing image to ' + pngImagePath);
+            fs.writeFile(pngImagePath, pngBuffer, function(err) {
+                if (err) console.warn(err);
+                newImage(pngImagePath);
+            });
+
         });
-    }, stepDuration);
-}, 0);
+}, waitForTakeOff);
