@@ -6,7 +6,8 @@ AR Drones doing circus tricks
 Project Plan
 
 Capture images
-	-DONE
+	-Written to file works - not fast enough
+	-Need to be able to get PNG Stream
 Find a certain colour in the image
 	-This will depend on which Hula Hoop we're using
 	-Tune the RGB accordingly
