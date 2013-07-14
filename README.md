@@ -29,8 +29,10 @@ Fly forward through the elipse
 Verify that we're flying straight - stretch
 	-Reassess the loop until it's out of the bounds of the image?
 
-
-
 Tests:
 	Stable hovering
 	Move small amounts left, right, up, down, find a good step for aligning with a hoop
+
+Flair - Music
+	- find music circus music and applause mp3
+	- hook up sound playing
