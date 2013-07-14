@@ -3,7 +3,7 @@
   "description": "AR Drone flying through hoops",
   "version": "0.0.1",
   "scripts": {
-        "start": "node app.js"
+        "start": "node app2.js"
   },
   "dependencies": {
         "express": "3.3.4",

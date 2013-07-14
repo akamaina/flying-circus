@@ -7,6 +7,7 @@
  */
 
 var cv = require('opencv');
+var drone = require('ar-drone');
 
 exports.copter = Copter;
 
@@ -15,8 +16,8 @@ function Copter() {
     this.filterResponseWriter = null;
     this.contourResponseWriter = null;
     this.circleResponseWriter = null;
-    var camera = new cv.VideoCapture(0);
-    var cameraStream = new cv.VideoStream(camera);
+    this.client = drone.createClient();
+    var imageStream = new cv.ImageStream();
     var self = this;
     var processing = false;
 
@@ -30,7 +31,7 @@ function Copter() {
         }
     }
 
-    cameraStream.on('data', function onStreamData(matrix) {
+    imageStream.on('data', function onStreamData(matrix) {
         if (!processing) {
             processing = true;
             cv.readImage(matrix.toBuffer(), function (error, image) {
@@ -55,7 +56,7 @@ function Copter() {
         }
     });
 
-    cameraStream.read();
+    this.client.getPngStream().pipe(imageStream);
 };
 
 /**
@@ -114,6 +115,10 @@ Copter.prototype.setSocket = function setCircle(socket) {
     socket.on('event_filter_to', function onToFilterChange(data) {
         console.log(data);
     });
+};
+
+Copter.prototype.getDrone = function getDrone() {
+    return this.client;
 };
 
 
