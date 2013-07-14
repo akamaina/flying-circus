@@ -36,8 +36,9 @@ function newImage(pngImagePath) {
 pngStream
     .on('error', console.log)
     .on('data', function(pngBuffer) {
-        var pngImagePath = './tmp/' + (new Date()).getTime() + '.png';
-        fs.write(pngImagePath, pngBuffer, function(err) {
+        var pngImagePath =  './photos/' + (new Date()).getTime() + '.png';
+        console.log('writing images to ' + pngImagePath);
+        fs.writeFile(pngImagePath, pngBuffer, function(err) {
             if (err) console.warn(err);
             newImage(pngImagePath);
         });
