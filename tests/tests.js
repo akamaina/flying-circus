@@ -5,6 +5,8 @@ fs.readdir(dir, function(err, files) {
     if (err) throw new Error(err);
 
     files.forEach(function(file) {
+        // skip output images
+        if (file.indexOf('out.png') > -1) return;
         console.log('Testing image: ' + file);
 
         // Each image name holds the direction to which the hoop is at
